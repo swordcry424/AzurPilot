@@ -22,11 +22,19 @@ Do not disable, replace, or bypass AzurPilot's updater.
 The launcher is allowed to run `reset --hard origin/master`, which removes
 local code patches. After an AzurPilot update completes:
 
-1. Fetch this fork.
-2. Rebase or rebuild this branch on the new upstream `master` if needed.
-3. Apply the two patch commits manually.
-4. Set `Alas.Emulator.Serial` to `auto`.
-5. Hot-reload the Alas service without running the launcher update again.
+1. Sync the fork's `master` with upstream.
+2. Rebase or rebuild `personal/live-patches` on that `master` if needed.
+3. In the installed AzurPilot checkout, fetch the personal fork.
+4. Apply only the two code-file differences:
+
+   ```sh
+   git diff patch/master..patch/personal/live-patches -- \
+     module/device/connection.py module/campaign/campaign_event.py \
+     | git apply --3way
+   ```
+
+5. Set `Alas.Emulator.Serial` to `auto`.
+6. Hot-reload the Alas service without running the launcher update again.
 
 ## Verification
 

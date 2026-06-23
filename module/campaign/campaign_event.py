@@ -51,9 +51,6 @@ class CampaignEvent(CampaignStatus):
             # 重置 GemsFarming
             self._reset_gems_farming(tasks)
 
-            logger.info(f'Reset event time limit')
-            self.config.cross_set(keys='EventGeneral.EventGeneral.TimeLimit', value=DEFAULT_TIME)
-
     def event_pt_limit_triggered(self):
         """
         检查活动 PT 是否达到限制。
